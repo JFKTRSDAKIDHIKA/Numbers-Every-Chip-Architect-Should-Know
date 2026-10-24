@@ -9,6 +9,7 @@ the ones you should be able to recall from memory, similar in spirit to
 | # | Number | Value | Notes |
 |---|--------|-------|-------|
 | 1 | DUV reticle limit | 26 mm × 33 mm (858 mm²) | Maximum exposure field of an ArF immersion (DUV) scanner. Any die larger than this must be stitched or built as a multi-die package. |
+| 2 | TSMC 7nm HD 6T SRAM bitcell area | 0.027 µm² / bit | High-density (HD) 6-transistor bitcell of TSMC N7. Sets the floor for on-chip SRAM density at that node. |
 
 ## 1. DUV Reticle Limit — 26 × 33 mm²
 
@@ -24,6 +25,21 @@ Practical implications:
   die) or splitting the product into chiplets on an interposer/substrate.
 - Smaller process nodes do not change this limit; it is set by lithography
   optics and mask size, not by the transistor density.
+
+## 2. TSMC 7nm HD 6T SRAM Bitcell — 0.027 µm² / bit
+
+The high-density (HD) 6-transistor SRAM bitcell in TSMC's N7 (7nm) process
+occupies **0.027 µm² per bit**.
+
+Practical implications:
+
+- This is the *bitcell* area only. Real macros add sense amps, decoders, wordline
+  drivers, I/O and wiring overhead — expect roughly **1.5×–2×** the pure bitcell
+  area for a complete SRAM macro, depending on aspect ratio and column muxing.
+- Density rules of thumb: **1 Mbit ≈ 0.027 mm²** of bitcell area
+  (≈ 0.04–0.05 mm² of actual macro), and **1 mm² of SRAM ≈ 37 Mbit** of raw bitcell.
+- Compare across nodes by bitcell area, not by node name: it is the number that
+  actually drives area budgets in a cache/memory hierarchy.
 
 ## Contributing
 
